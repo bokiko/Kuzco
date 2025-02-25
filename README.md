@@ -1,6 +1,28 @@
 # Kuzco Installation Guide
 
-This repository contains step-by-step guides for installing Kuzco on Ubuntu and Windows platforms.
+## Introduction to Kuzco Testnet
+
+Kuzco.xyz Testnet is a globally distributed network of GPUs that enables AI inference tasks for large language models like Llama3, Mistral, and others. The network allows anyone with compatible GPU hardware to join and start earning $KZO points by contributing their computing power.
+
+### What is Kuzco?
+- A decentralized AI inference network
+- Allows GPU owners to monetize their hardware by running AI inference tasks
+- Supports popular AI models including Llama3, Mistral, and more
+- Currently in testnet phase, with participants earning $KZO points
+
+### Why Join Kuzco?
+- Monetize your idle GPU resources
+- Participate in building the decentralized AI infrastructure
+- Earn $KZO points based on your contribution
+- Be part of an early-stage project with future potential
+
+### Requirements
+- NVIDIA GPU with at least 16GB of VRAM
+- 16GB system RAM minimum
+- 30GB free disk space
+- Reliable 100Mbps+ network connection
+
+This guide provides detailed instructions for setting up Kuzco on both Ubuntu and Windows platforms.
 
 ## Table of Contents
 - [Ubuntu Installation Guide (CLI Method)](#ubuntu-installation-guide)
