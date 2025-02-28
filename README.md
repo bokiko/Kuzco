@@ -120,7 +120,7 @@ Create a systemd service file:
 sudo nano /etc/systemd/system/kuzco.service
 ```
 
-Add the following content (please add your worker ID and Code:
+Add the following content (please add your worker ID and Code):
 ```
 [Unit]
 Description=Kuzco Worker Service
