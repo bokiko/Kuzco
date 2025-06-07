@@ -80,7 +80,7 @@ You should see your GPU information and driver version.
 Install the unified node software:
 
 ```bash
-curl -fsSL https://download.inference.net/install.sh | sh
+curl -fsSL https://devnet.inference.net/install.sh | sh
 ```
 
 ### Step 4: Account Setup
