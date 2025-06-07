@@ -1,5 +1,19 @@
 # Inference.net Epoch 3 - Complete Installation Guide
 
+## 📑 Table of Contents
+
+1. [Overview](#-overview)
+2. [Hardware Requirements](#-hardware-requirements)
+3. [Ubuntu Installation Guide](#-ubuntu-installation-guide)
+4. [Windows Installation Guide](#-windows-installation-guide)
+5. [Node Management Commands](#-node-management-commands)
+6. [Understanding the Reward System](#-understanding-the-reward-system)
+7. [Epoch 3 Timeline](#-epoch-3-timeline)
+8. [Troubleshooting](#-troubleshooting)
+9. [Support & Resources](#-support--resources)
+
+---
+
 ## 📋 Overview
 
 Inference.net Epoch 3 launched on June 6th, 2025, introducing significant protocol changes including Solana integration, stake-weighted routing, and automatic node updates. This guide provides comprehensive instructions for setting up your node to participate in the decentralized AI inference network.
@@ -34,7 +48,7 @@ Inference.net is a globally distributed network of GPUs that enables AI inferenc
 - **Mid-Range**: RTX 3090, RTX 3080, RTX 4070, A6000
 - **Entry Level**: RTX 3070, RTX 4060 Ti (16GB), RTX 3060 (12GB)
 
-**Note**: Starting June 6th, only GPUs that can be properly identified by the detection system will be permitted to join the network
+**Note**: Starting June 6th, only GPUs that can be properly identified by the detection system will be permitted to join the network. **AMD GPU support is currently not available** - contact support@inference.net for updates.
 
 ---
 
@@ -197,49 +211,100 @@ sudo systemctl status inference.service
 docker run --rm --runtime=nvidia --gpus all -e CACHE_DIRECTORY=/root/models -v ${HOME}/.inference/models:/root/models inference.net/worker --worker <your-worker-id> --code <your-worker-code>
 ```
 
+### Method 3: Windows Subsystem for Linux (WSL)
+
+#### Prerequisites
+
+1. **Enable WSL**: Open PowerShell as Administrator and run:
+```powershell
+wsl --install
+```
+
+2. **Install Ubuntu**: From Microsoft Store, install Ubuntu 22.04 LTS
+
+3. **Setup WSL**: Restart computer and complete Ubuntu setup
+
+#### Installation Steps
+
+1. **Open Ubuntu Terminal**: Launch Ubuntu from Start menu
+
+2. **Update System**:
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+3. **Install Dependencies**:
+```bash
+sudo apt install curl wget tmux nano -y
+```
+
+4. **Install NVIDIA Drivers for WSL**: In Windows (not WSL), install latest NVIDIA drivers with WSL support
+
+5. **Install Inference.net**:
+```bash
+curl -fsSL https://devnet.inference.net/install.sh | sh
+```
+
+6. **Follow Ubuntu Steps**: Continue with Steps 4-7 from the Ubuntu installation guide
+
+7. **Start Worker**: Use tmux for persistent operation:
+```bash
+tmux new -s inference
+inference login
+inference worker create
+inference worker start --worker <your-worker-id> --code <your-worker-code>
+```
+
 ---
 
 ## 📊 Node Management Commands
 
 ### Essential Commands
 
-Check worker status:
+**Check worker status**:
 ```bash
 inference worker status
 ```
 
-View worker logs:
+**View worker logs**:
 ```bash
 inference worker logs
 ```
 
-Stop worker:
+**Stop worker**:
 ```bash
 inference worker stop
 ```
 
-Restart worker:
+**Restart worker**:
 ```bash
 inference worker restart
 ```
 
-Check node version:
+**Create new worker**:
+```bash
+inference worker create
+```
+
+**Clean worker data**:
+```bash
+inference worker clean
+```
+
+**Check client version**:
 ```bash
 inference version
 ```
 
-### Monitoring Your Node
-
-View real-time performance:
+**Login to account**:
 ```bash
-# Check GPU usage
-nvidia-smi
+inference login
+```
 
-# Monitor system resources
-htop
-
-# Check network connections
-inference worker stats
+**Get help**:
+```bash
+inference --help
+inference worker --help
 ```
 
 ---
@@ -270,6 +335,17 @@ Each instance receives a priority score that determines job probability based on
 
 ---
 
+## 📅 Epoch 3 Timeline
+
+| Date | Feature | Description |
+|------|---------|-------------|
+| **June 6, 2025** | Network Upgrade | • Auto-update system activation for all node types • Enhanced GPU detection and validation• Unified inference engine• New simplified node deployment instructions• Unknown GPUs blocked from joining network |
+| **June 13, 2025** | Economic Layer | • $INT-DEV token airdrop to eligible operators • Staking protocol goes live• Stake-weighted job routing begins• Operator pool creation enabled• Delegation functionality activated |
+| **June 20, 2025** | Extended Features | • Bonus point system for community contributions • Additional point-earning opportunities• Enhanced monitoring and analytics• Reputation system testing begins |
+| **Late June 2025** | Advanced Features | • Full reputation scoring activation • Performance-based routing adjustments• Slashing mechanism testing (devnet only)• Additional operator pool management features |
+
+---
+
 ## 🔧 Troubleshooting
 
 ### Common Issues
@@ -285,6 +361,9 @@ nvidia-docker --version
 # Update drivers
 sudo ubuntu-drivers autoinstall && sudo reboot
 ```
+
+**AMD GPU Issues**:
+Currently, Inference.net Epoch 3 only supports NVIDIA GPUs. AMD GPU support is not yet available. Contact support@inference.net for updates on AMD compatibility.
 
 **Worker Connection Issues**:
 ```bash
@@ -318,9 +397,12 @@ The auto-update mechanism performs health checks and automatically rollbacks to 
 View detailed logs:
 ```bash
 # Worker logs
+inference worker logs
+
+# Follow live logs
 inference worker logs --follow
 
-# System logs
+# System logs (if using systemd)
 journalctl -u inference.service -f
 
 # GPU logs
@@ -340,34 +422,12 @@ nvidia-smi dmon
 
 ---
 
-## 📅 Epoch 3 Timeline
-
-| Date | Feature | Description |
-|------|---------|-------------|
-| **June 6, 2025** | Network Upgrade | Auto-update system, enhanced GPU detection, unified inference engine, simplified deployment |
-| **June 13, 2025** | Economic Layer | $INT-DEV token airdrop, staking protocol launch, stake-weighted routing, delegation functionality |
-| **June 20, 2025** | Extended Features | Bonus point system, additional earning opportunities, enhanced monitoring |
-| **Late June 2025** | Advanced Features | Full reputation scoring, performance-based routing, slashing mechanism testing |
-
----
-
-## ⚡ Quick Start Summary
-
-1. **Install**: `curl -fsSL https://download.inference.net/install.sh | sh`
-2. **Register**: Create account at [devnet.inference.net](https://devnet.inference.net)
-3. **Link Wallet**: Connect Solana wallet before June 13th
-4. **Login**: `inference login`
-5. **Create Worker**: `inference worker create`
-6. **Start**: `inference worker start --worker <id> --code <code>`
-7. **Monitor**: `inference worker status`
-
----
-
 ## 📞 Support & Resources
 
 - **Documentation**: [docs.devnet.inference.net](https://docs.devnet.inference.net)
 - **Dashboard**: [devnet.inference.net](https://devnet.inference.net)
 - **Discord Community**: [discord.gg/kuzco](https://discord.gg/kuzco)
 - **Status Updates**: Follow #announcements on Discord
+- **Follow the Guide Author**: [@bokiko_io](https://twitter.com/bokiko_io) on Twitter
 
 *Last Updated: June 7, 2025 - Epoch 3 Launch*
