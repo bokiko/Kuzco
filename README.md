@@ -1,135 +1,153 @@
-# Kuzco Installation Guide
+# Inference.net Epoch 3 - Complete Installation Guide
 
-## Introduction to Kuzco Testnet
+## 📋 Overview
 
-Kuzco.xyz Testnet is a globally distributed network of GPUs that enables AI inference tasks for large language models like Llama3, Mistral, and others. The network allows anyone with compatible GPU hardware to join and start earning $KZO points by contributing their computing power.
+Inference.net Epoch 3 launched on June 6th, 2025, introducing significant protocol changes including Solana integration, stake-weighted routing, and automatic node updates. This guide provides comprehensive instructions for setting up your node to participate in the decentralized AI inference network.
 
-### What is Kuzco?
-- A decentralized AI inference network
-- Allows GPU owners to monetize their hardware by running AI inference tasks
-- Supports popular AI models including Llama3, Mistral, and more
-- Currently in testnet phase, with participants earning $KZO points
+### What is Inference.net?
 
-### Why Join Kuzco?
-- Monetize your idle GPU resources
-- Participate in building the decentralized AI infrastructure
-- Earn $KZO points based on your contribution
-- Be part of an early-stage project with future potential
+Inference.net is a globally distributed network of GPUs that enables AI inference tasks for large language models. The network allows GPU owners to contribute computing power and earn $INT points and $INT-DEV tokens through a stake-weighted system.
 
-### Requirements
-- NVIDIA GPU with at least 16GB of VRAM
-- 16GB system RAM minimum
-- 30GB free disk space
-- Reliable 100Mbps+ network connection
+### Key Features of Epoch 3
 
-This guide provides detailed instructions for setting up Kuzco on both Ubuntu and Windows platforms.
+- **Automatic Node Updates**: Auto-update system activation for all node types with health checks and automatic rollback
+- **Unified Inference Engine**: Single container that automatically detects hardware specifications and selects optimal inference engine
+- **Stake-Weighted Job Routing**: Economic incentives for reliable operation with priority scoring
+- **Solana Integration**: On-chain staking protocol with $INT-DEV tokens
+- **Enhanced GPU Detection**: Strict GPU detection requirements - only properly identified GPUs can join the network
 
-## Table of Contents
-- [Ubuntu Installation Guide (CLI Method)](#ubuntu-installation-guide)
-- [Windows Installation Guide](#windows-installation-guide)
-- [Managing Your Worker](#managing-your-worker)
-- [Troubleshooting](#troubleshooting)
+---
 
-## Ubuntu Installation Guide
+## 🛠 Hardware Requirements
 
-### Prerequisites
-- Ubuntu OS (20.04 LTS or newer)
-- NVIDIA GPU with at least 16GB of VRAM
-- 16GB RAM minimum
-- 30GB free disk space
-- Reliable 100Mbps+ network connection
+### Minimum System Requirements
 
-### Step 1: Update System
+- **GPU**: NVIDIA GPU with 8GB+ VRAM (16GB+ recommended)
+- **RAM**: 16GB system memory minimum (32GB+ recommended)
+- **Storage**: 50GB+ free disk space for models and cache
+- **Network**: Stable broadband connection (100Mbps+ recommended)
+- **OS**: Ubuntu 20.04 LTS or newer / Windows 10/11
+
+### Supported GPUs
+
+- **High Performance**: RTX 4090, RTX 4080, A100, H100
+- **Mid-Range**: RTX 3090, RTX 3080, RTX 4070, A6000
+- **Entry Level**: RTX 3070, RTX 4060 Ti (16GB), RTX 3060 (12GB)
+
+**Note**: Starting June 6th, only GPUs that can be properly identified by the detection system will be permitted to join the network
+
+---
+
+## 🐧 Ubuntu Installation Guide
+
+### Step 1: System Preparation
+
+Update your system and install essential packages:
+
 ```bash
-sudo apt update
-sudo apt upgrade -y
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl wget tmux nano ubuntu-drivers-common -y
 ```
 
-### Step 2: Install NVIDIA Drivers
+### Step 2: NVIDIA Driver Installation
+
+Check available drivers and install:
+
 ```bash
-sudo apt install ubuntu-drivers-common -y
+# Check your GPU
+lspci | grep -i nvidia
+
+# See available drivers
 ubuntu-drivers devices
-sudo ubuntu-drivers autoinstall
-```
 
-After installation, reboot your system:
-```bash
+# Install recommended driver
+sudo ubuntu-drivers autoinstall
+
+# Reboot system
 sudo reboot
 ```
 
-### Step 3: Verify GPU Driver Installation
+Verify installation:
+
 ```bash
 nvidia-smi
 ```
 
-You should see information about your GPU including driver version.
+You should see your GPU information and driver version.
 
-### Step 4: Install Kuzco CLI Method
+### Step 3: Install Inference.net Node
+
+Install the unified node software:
+
 ```bash
-curl -fsSL https://kuzco.xyz/install.sh | sh
+curl -fsSL https://download.inference.net/install.sh | sh
 ```
 
-### Step 7: Create and Run a Kuzco Worker
+### Step 4: Account Setup
 
-1. Register for an account at [kuzco.xyz/register](https://kuzco.xyz/register)
-2. Verify your email and connect your Discord account (optional)
-3. Login to your account on the CLI:
+1. **Register Account**: Visit [devnet.inference.net](https://devnet.inference.net) and create an account
+2. **Link Solana Wallet**: Link your Solana wallet on the dashboard to your Inference.net account before June 13th
+3. **Verify Email**: Complete email verification
+4. **Connect Discord** (Optional): Link Discord for community updates
+
+### Step 5: Node Authentication
+
+Login to your account:
+
 ```bash
-kuzco login
+inference login
 ```
 
-4. Create a worker:
+### Step 6: Create and Start Worker
+
+Create a new worker:
+
 ```bash
-kuzco worker create
+inference worker create
 ```
-Note your worker ID and code from the output.
 
-5. Start your worker (Direct Method):
+**Important**: Save the worker ID and code displayed in the output.
+
+Start your worker:
+
 ```bash
-kuzco worker start --worker <your-worker-id> --code <your-worker-code>
+inference worker start --worker <your-worker-id> --code <your-worker-code>
 ```
 
-### Step 8: Setting Up Persistent Kuzco Worker with tmux
+### Step 7: Set Up Persistent Operation with tmux
 
-1. Install tmux:
+Install and configure tmux for background operation:
+
 ```bash
-sudo apt install tmux -y
+# Create tmux session
+tmux new -s inference
+
+# Inside tmux, start your worker
+inference worker start --worker <your-worker-id> --code <your-worker-code>
+
+# Detach from session: Press Ctrl+B, then D
+# Reconnect later: tmux attach -t inference
 ```
 
-2. Create a new tmux session:
+### Step 8: Auto-Start Configuration (Optional)
+
+Create systemd service for automatic startup:
+
 ```bash
-tmux new -s kuzco
+sudo nano /etc/systemd/system/inference.service
 ```
 
-3. Inside the tmux session, start your worker:
-```bash
-kuzco worker start --worker <your-worker-id> --code <your-worker-code>
-```
+Add the following content:
 
-4. Detach from tmux session by pressing `Ctrl+B` then `D`
-
-5. To reconnect to your session later:
-```bash
-tmux attach -t kuzco
-```
-
-### Step 9: Setting Up Automatic Start on Boot (Optional)
-
-Create a systemd service file:
-```bash
-sudo nano /etc/systemd/system/kuzco.service
-```
-
-Add the following content (please add your worker ID and Code):
-```
+```ini
 [Unit]
-Description=Kuzco Worker Service
+Description=Inference.net Worker Service
 After=network.target
 
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/local/bin/kuzco worker start --worker <your-worker-id> --code <your-worker-code>
+ExecStart=/usr/local/bin/inference worker start --worker <your-worker-id> --code <your-worker-code>
 Restart=always
 RestartSec=10
 
@@ -138,106 +156,218 @@ WantedBy=multi-user.target
 ```
 
 Enable and start the service:
+
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable kuzco.service
-sudo systemctl start kuzco.service
+sudo systemctl enable inference.service
+sudo systemctl start inference.service
+sudo systemctl status inference.service
 ```
 
-Check service status:
-```bash
-sudo systemctl status kuzco.service
-```
+---
 
-## Windows Installation Guide
-
-### Prerequisites
-- Windows 10/11
-- NVIDIA GPU with at least 16GB of VRAM
-- 16GB RAM minimum
-- 30GB free disk space
-- Reliable 100Mbps+ network connection
+## 🪟 Windows Installation Guide
 
 ### Method 1: Desktop Application (Recommended)
 
-1. Download the Kuzco Windows app from the [official website](https://kuzco.xyz)
-2. Install the application
-3. Register for an account
-4. Follow the on-screen instructions to create and run a worker
+1. **Download**: Visit [devnet.inference.net](https://devnet.inference.net) and download the Windows desktop app
+2. **Install**: Run the installer and follow the setup wizard
+3. **Register**: Create account and verify email
+4. **Link Wallet**: Connect your Solana wallet in the dashboard
+5. **Configure**: Follow the app's guided setup for worker creation
+6. **Run**: Start your worker through the desktop interface
 
-### Method 2: Docker on Windows
+### Method 2: Docker Method (Advanced)
 
-1. Install Docker Desktop for Windows from [Docker's website](https://www.docker.com/products/docker-desktop)
-2. Install the NVIDIA Driver for your GPU from [NVIDIA's website](https://www.nvidia.com/Download/index.aspx)
-3. Install NVIDIA Container Toolkit for Windows
-4. Register for a Kuzco account at [kuzco.xyz/register](https://kuzco.xyz/register)
-5. Verify your email and connect your Discord account
-6. Navigate to the "Workers" tab on the dashboard
-7. Click "Create Worker" and select "Docker"
-8. Copy the Docker command from the dashboard
-9. Open PowerShell and run the Docker command:
+#### Prerequisites
+
+- Install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop)
+- Install latest [NVIDIA GPU drivers](https://www.nvidia.com/Download/index.aspx)
+- Install NVIDIA Container Toolkit
+
+#### Setup Steps
+
+1. **Register Account**: Create account at [devnet.inference.net](https://devnet.inference.net)
+2. **Link Solana Wallet**: Connect wallet in the dashboard
+3. **Create Worker**: Navigate to "Workers" tab → "Create Worker" → Select "Docker"
+4. **Copy Command**: Copy the provided Docker command from dashboard
+5. **Run Container**:
+
 ```powershell
-docker run --rm --runtime=nvidia --gpus all -e CACHE_DIRECTORY=/root/models -v ${HOME}/.kuzco/models:/root/models kuzcoxyz/amd64-ollama-nvidia-worker --worker <your-worker-id> --code <your-worker-code>
+docker run --rm --runtime=nvidia --gpus all -e CACHE_DIRECTORY=/root/models -v ${HOME}/.inference/models:/root/models inference.net/worker --worker <your-worker-id> --code <your-worker-code>
 ```
 
-### Method 3: WSL (Windows Subsystem for Linux)
+---
 
-1. Enable WSL 2 and install Ubuntu from the Microsoft Store
-2. Follow the Ubuntu installation guide above within your WSL environment
+## 📊 Node Management Commands
 
-## Managing Your Worker
-
-### Worker Management Commands
+### Essential Commands
 
 Check worker status:
 ```bash
-kuzco worker status
+inference worker status
 ```
 
 View worker logs:
 ```bash
-sudo kuzco worker logs
-```
-
-Restart worker:
-```bash
-sudo kuzco worker restart
+inference worker logs
 ```
 
 Stop worker:
 ```bash
-sudo kuzco worker stop
+inference worker stop
 ```
 
-Clean worker data:
+Restart worker:
 ```bash
-sudo kuzco clean --force
+inference worker restart
 ```
 
-## Troubleshooting
+Check node version:
+```bash
+inference version
+```
 
-### Common Issues and Solutions
+### Monitoring Your Node
 
-1. **Error: Worker fails to initialize**
-   - Solution: Check your GPU driver installation and make sure it's compatible with your GPU.
+View real-time performance:
+```bash
+# Check GPU usage
+nvidia-smi
 
-2. **Worker fails to start or crashes**
-   - Check your GPU driver status: `nvidia-smi`
-   - Check worker logs: `sudo kuzco worker logs`
-   - Try stopping and restarting the worker
-   - Try creating a new worker
+# Monitor system resources
+htop
 
-3. **URL Parsing Errors**
-   - Try running the worker without systemd: `kuzco worker start --worker <id> --code <code>`
-   - Upgrade Kuzco: `kuzco upgrade`
+# Check network connections
+inference worker stats
+```
 
-4. **Worker gets disconnected frequently**
-   - Ensure your internet connection is stable
-   - Check if your firewall is blocking connections
-   - Run the worker in a tmux session for persistence
+---
 
-### Getting Support
+## 💰 Understanding the Reward System
 
-- Join the [Kuzco Discord](https://discord.gg/kuzco) for community support
-- Open a ticket through the Discord server for technical assistance
-- Monitor the #announcements channel for updates on service status
+### Dual Token System
+
+**$INT Points (Off-chain)**:
+- Accumulated in real-time as jobs are processed
+- Calculated based on computational work performed
+- May be awarded for non-compute contributions (guides, community help)
+
+**$INT-DEV Tokens (On-chain)**:
+- Distributed daily at midnight UTC
+- Based on stake-weighted job completion
+- Required for staking to receive job allocations
+
+### Stake-Weighted Routing
+
+Each instance receives a priority score that determines job probability based on Device VRAM, Total INT Stake, Reputation Weight, and network parameter k
+
+**Priority Score Factors**:
+- **VRAM Normalization**: Stake distributed across your total VRAM
+- **Total Stake**: Operator-owned + delegated tokens
+- **Reputation**: Performance-based multiplier (coming later in Epoch 3)
+- **Network Parameter k**: Adjusts based on utilization
+
+---
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**GPU Not Detected**:
+```bash
+# Check GPU status
+nvidia-smi
+
+# Verify driver installation
+nvidia-docker --version
+
+# Update drivers
+sudo ubuntu-drivers autoinstall && sudo reboot
+```
+
+**Worker Connection Issues**:
+```bash
+# Check network connectivity
+ping devnet.inference.net
+
+# Restart worker
+inference worker restart
+
+# Check firewall settings
+sudo ufw status
+```
+
+**Performance Issues**:
+```bash
+# Monitor GPU temperature
+nvidia-smi -l 1
+
+# Check disk space
+df -h
+
+# Monitor memory usage
+free -h
+```
+
+**Auto-Update Problems**:
+The auto-update mechanism performs health checks and automatically rollbacks to previous stable version if update fails
+
+### Log Analysis
+
+View detailed logs:
+```bash
+# Worker logs
+inference worker logs --follow
+
+# System logs
+journalctl -u inference.service -f
+
+# GPU logs
+nvidia-smi dmon
+```
+
+### Getting Help
+
+**Community Support**:
+- Join [Discord](https://discord.gg/kuzco) for real-time help
+- Monitor #announcements for network updates
+- Open support tickets through Discord
+
+**Documentation**:
+- Official docs: [docs.devnet.inference.net](https://docs.devnet.inference.net)
+- Dashboard: [devnet.inference.net](https://devnet.inference.net)
+
+---
+
+## 📅 Epoch 3 Timeline
+
+| Date | Feature | Description |
+|------|---------|-------------|
+| **June 6, 2025** | Network Upgrade | Auto-update system, enhanced GPU detection, unified inference engine, simplified deployment |
+| **June 13, 2025** | Economic Layer | $INT-DEV token airdrop, staking protocol launch, stake-weighted routing, delegation functionality |
+| **June 20, 2025** | Extended Features | Bonus point system, additional earning opportunities, enhanced monitoring |
+| **Late June 2025** | Advanced Features | Full reputation scoring, performance-based routing, slashing mechanism testing |
+
+---
+
+## ⚡ Quick Start Summary
+
+1. **Install**: `curl -fsSL https://download.inference.net/install.sh | sh`
+2. **Register**: Create account at [devnet.inference.net](https://devnet.inference.net)
+3. **Link Wallet**: Connect Solana wallet before June 13th
+4. **Login**: `inference login`
+5. **Create Worker**: `inference worker create`
+6. **Start**: `inference worker start --worker <id> --code <code>`
+7. **Monitor**: `inference worker status`
+
+---
+
+## 📞 Support & Resources
+
+- **Documentation**: [docs.devnet.inference.net](https://docs.devnet.inference.net)
+- **Dashboard**: [devnet.inference.net](https://devnet.inference.net)
+- **Discord Community**: [discord.gg/kuzco](https://discord.gg/kuzco)
+- **Status Updates**: Follow #announcements on Discord
+
+*Last Updated: June 7, 2025 - Epoch 3 Launch*
