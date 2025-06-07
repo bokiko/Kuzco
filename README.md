@@ -1,161 +1,138 @@
-# Inference.net Epoch 3 - Complete Installation Guide
+# 🚀 Inference.net Epoch 3 - Complete Setup Guide
 
-## 📑 Table of Contents
 
-1. [Overview](#-overview)
-2. [Hardware Requirements](#-hardware-requirements)
-3. [Ubuntu Installation Guide](#-ubuntu-installation-guide)
-4. [Windows Installation Guide](#-windows-installation-guide)
-5. [Node Management Commands](#-node-management-commands)
-6. [Understanding the Reward System](#-understanding-the-reward-system)
-7. [Epoch 3 Timeline](#-epoch-3-timeline)
-8. [Troubleshooting](#-troubleshooting)
-9. [Support & Resources](#-support--resources)
+**Follow [@bokiko_io](https://twitter.com/bokiko_io) for updates and crypto mining guides**
 
 ---
 
-## 📋 Overview
+## 📑 Quick Navigation
 
-Inference.net Epoch 3 launched on June 6th, 2025, introducing significant protocol changes including Solana integration, stake-weighted routing, and automatic node updates. This guide provides comprehensive instructions for setting up your node to participate in the decentralized AI inference network.
+| Section | What You'll Do |
+|---------|----------------|
+| [🎯 Start Here](#-start-here) | Check if you can run this |
+| [💻 Ubuntu Setup](#-ubuntu-setup) | Linux installation (Recommended) |
+| [🪟 Windows Setup](#-windows-setup) | Windows installation (3 methods) |
+| [⚡ Get Running](#-get-running) | Start earning immediately |
+| [💰 Rewards Explained](#-how-rewards-work) | Understand the money |
+| [📅 Timeline](#-epoch-3-roadmap) | What's coming next |
+| [🔧 Troubleshooting](#-troubleshooting) | Fix common issues |
+
+---
+
+## 🎯 Start Here
 
 ### What is Inference.net?
 
-Inference.net is a globally distributed network of GPUs that enables AI inference tasks for large language models. The network allows GPU owners to contribute computing power and earn $INT points and $INT-DEV tokens through a stake-weighted system.
+**The world's largest decentralized GPU network** where you rent out your graphics card to run AI models and get paid in crypto. Think of it as Airbnb for GPUs.
 
-### Key Features of Epoch 3
+### ✅ Do You Qualify?
 
-- **Automatic Node Updates**: Auto-update system activation for all node types with health checks and automatic rollback
-- **Unified Inference Engine**: Single container that automatically detects hardware specifications and selects optimal inference engine
-- **Stake-Weighted Job Routing**: Economic incentives for reliable operation with priority scoring
-- **Solana Integration**: On-chain staking protocol with $INT-DEV tokens
-- **Enhanced GPU Detection**: Strict GPU detection requirements - only properly identified GPUs can join the network
+**Your GPU needs:**
+- **NVIDIA only** (AMD coming soon - contact support@inference.net)
+- **8GB+ VRAM minimum** (16GB+ recommended for better earnings)
+- **Popular cards**: RTX 3060 (12GB), RTX 3070, RTX 3080, RTX 3090, RTX 4070, RTX 4080, RTX 4090
 
----
+**Your system needs:**
+- 16GB+ RAM
+- 50GB+ free storage
+- Stable internet (100Mbps+)
+- Ubuntu Linux OR Windows 10/11
 
-## 🛠 Hardware Requirements
+**💡 Quick Check:** Run `nvidia-smi` in terminal. See your GPU? You're good to go!
 
-### Minimum System Requirements
+### 🔥 What's New in Epoch 3?
 
-- **GPU**: NVIDIA GPU with 8GB+ VRAM (16GB+ recommended)
-- **RAM**: 16GB system memory minimum (32GB+ recommended)
-- **Storage**: 50GB+ free disk space for models and cache
-- **Network**: Stable broadband connection (100Mbps+ recommended)
-- **OS**: Ubuntu 20.04 LTS or newer / Windows 10/11
-
-### Supported GPUs
-
-- **High Performance**: RTX 4090, RTX 4080, A100, H100
-- **Mid-Range**: RTX 3090, RTX 3080, RTX 4070, A6000
-- **Entry Level**: RTX 3070, RTX 4060 Ti (16GB), RTX 3060 (12GB)
-
-**Note**: Starting June 6th, only GPUs that can be properly identified by the detection system will be permitted to join the network. **AMD GPU support is currently not available** - contact support@inference.net for updates.
+- **Auto-updates**: No more manual updating
+- **Solana integration**: Real crypto payments ($INT-DEV tokens)
+- **Stake-weighted rewards**: More stake = more jobs = more money
+- **Strict GPU detection**: Only verified GPUs allowed (better stability)
 
 ---
 
-## 🐧 Ubuntu Installation Guide
+## 💻 Ubuntu Setup
 
-### Step 1: System Preparation
+*Most popular method - better performance, easier management*
 
-Update your system and install essential packages:
+### Step 1: Prepare Your System
 
 ```bash
+# Update everything
 sudo apt update && sudo apt upgrade -y
+
+# Install essentials
 sudo apt install curl wget tmux nano ubuntu-drivers-common -y
 ```
 
-### Step 2: NVIDIA Driver Installation
-
-Check available drivers and install:
+### Step 2: Install NVIDIA Drivers
 
 ```bash
 # Check your GPU
-lspci | grep -i nvidia
+nvidia-smi
 
-# See available drivers
+# If that fails, install drivers:
 ubuntu-drivers devices
-
-# Install recommended driver
 sudo ubuntu-drivers autoinstall
-
-# Reboot system
 sudo reboot
-```
 
-Verify installation:
-
-```bash
+# Verify after reboot
 nvidia-smi
 ```
 
-You should see your GPU information and driver version.
+**✅ Success:** You should see your GPU name, temperature, and memory usage.
 
-### Step 3: Install Inference.net Node
-
-Install the unified node software:
+### Step 3: Install Inference.net
 
 ```bash
+# One command installation
 curl -fsSL https://devnet.inference.net/install.sh | sh
 ```
 
-### Step 4: Account Setup
+### Step 4: Create Your Account
 
-1. **Register Account**: Visit [devnet.inference.net](https://devnet.inference.net) and create an account
-2. **Link Solana Wallet**: Link your Solana wallet on the dashboard to your Inference.net account before June 13th
-3. **Verify Email**: Complete email verification
-4. **Connect Discord** (Optional): Link Discord for community updates
+1. **Sign up**: [devnet.inference.net](https://devnet.inference.net)
+2. **Verify email** (check spam folder)
+3. **Link Solana wallet** (CRITICAL - do this before June 13th for tokens!)
+4. **Join Discord** (optional): [discord.gg/kuzco](https://discord.gg/kuzco)
 
-### Step 5: Node Authentication
-
-Login to your account:
+### Step 5: Start Earning
 
 ```bash
+# Login
 inference login
-```
 
-### Step 6: Create and Start Worker
-
-Create a new worker:
-
-```bash
+# Create worker
 inference worker create
-```
 
-**Important**: Save the worker ID and code displayed in the output.
+# Copy the worker ID and code it gives you!
 
-Start your worker:
-
-```bash
+# Start earning (replace with your actual values)
 inference worker start --worker <your-worker-id> --code <your-worker-code>
 ```
 
-### Step 7: Set Up Persistent Operation with tmux
+### Step 6: Keep It Running 24/7
 
-Install and configure tmux for background operation:
-
+**Option A: Using tmux (Easy to monitor)**
 ```bash
-# Create tmux session
-tmux new -s inference
+# Create persistent session
+tmux new -s inference-node
 
-# Inside tmux, start your worker
+# Start worker inside tmux
 inference worker start --worker <your-worker-id> --code <your-worker-code>
 
-# Detach from session: Press Ctrl+B, then D
-# Reconnect later: tmux attach -t inference
+# Detach: Press Ctrl+B, then D
+# Reconnect anytime: tmux attach -t inference-node
 ```
 
-### Step 8: Auto-Start Configuration (Optional)
-
-Create systemd service for automatic startup:
-
+**Option B: Auto-start on boot (Set and forget)**
 ```bash
+# Create service file
 sudo nano /etc/systemd/system/inference.service
 ```
 
-Add the following content:
-
+Paste this (replace with your worker ID and code):
 ```ini
 [Unit]
-Description=Inference.net Worker Service
+Description=Inference.net Worker
 After=network.target
 
 [Service]
@@ -169,232 +146,261 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
-Enable and start the service:
-
+Enable it:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable inference.service
 sudo systemctl start inference.service
+
+# Check status
 sudo systemctl status inference.service
 ```
 
+**✅ You're Done!** Your GPU is now earning crypto 24/7.
+
 ---
 
-## 🪟 Windows Installation Guide
+## 🪟 Windows Setup
 
-### Method 1: Desktop Application (Recommended)
+### Method 1: Desktop App (Easiest)
 
-1. **Download**: Visit [devnet.inference.net](https://devnet.inference.net) and download the Windows desktop app
-2. **Install**: Run the installer and follow the setup wizard
-3. **Register**: Create account and verify email
-4. **Link Wallet**: Connect your Solana wallet in the dashboard
-5. **Configure**: Follow the app's guided setup for worker creation
-6. **Run**: Start your worker through the desktop interface
+1. **Download**: [devnet.inference.net](https://devnet.inference.net) → Download Windows app
+2. **Install** → Follow wizard
+3. **Sign up** → Verify email
+4. **Link Solana wallet** (before June 13th!)
+5. **Create worker** → Follow app instructions
+6. **Start earning** → Click "Start Worker"
 
-### Method 2: Docker Method (Advanced)
+**✅ Done!** Easiest method for beginners.
 
-#### Prerequisites
+### Method 2: Docker (Advanced Users)
 
-- Install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop)
-- Install latest [NVIDIA GPU drivers](https://www.nvidia.com/Download/index.aspx)
-- Install NVIDIA Container Toolkit
+**Prerequisites:**
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [NVIDIA drivers](https://www.nvidia.com/Download/index.aspx)
+- NVIDIA Container Toolkit
 
-#### Setup Steps
-
-1. **Register Account**: Create account at [devnet.inference.net](https://devnet.inference.net)
-2. **Link Solana Wallet**: Connect wallet in the dashboard
-3. **Create Worker**: Navigate to "Workers" tab → "Create Worker" → Select "Docker"
-4. **Copy Command**: Copy the provided Docker command from dashboard
-5. **Run Container**:
+**Steps:**
+1. Create account at [devnet.inference.net](https://devnet.inference.net)
+2. Link Solana wallet
+3. Go to "Workers" → "Create Worker" → "Docker"
+4. Copy the command and run in PowerShell:
 
 ```powershell
 docker run --rm --runtime=nvidia --gpus all -e CACHE_DIRECTORY=/root/models -v ${HOME}/.inference/models:/root/models inference.net/worker --worker <your-worker-id> --code <your-worker-code>
 ```
 
-### Method 3: Windows Subsystem for Linux (WSL)
+### Method 3: WSL (Linux on Windows)
 
-#### Prerequisites
+**Why use this?** Better performance than Windows app, easier than Docker.
 
-1. **Enable WSL**: Open PowerShell as Administrator and run:
+**Setup WSL:**
 ```powershell
+# Run as Administrator in PowerShell
 wsl --install
+
+# Restart computer
+# Install Ubuntu 22.04 from Microsoft Store
 ```
 
-2. **Install Ubuntu**: From Microsoft Store, install Ubuntu 22.04 LTS
-
-3. **Setup WSL**: Restart computer and complete Ubuntu setup
-
-#### Installation Steps
-
-1. **Open Ubuntu Terminal**: Launch Ubuntu from Start menu
-
-2. **Update System**:
+**Install Inference.net:**
 ```bash
+# Open Ubuntu terminal
 sudo apt update && sudo apt upgrade -y
-```
-
-3. **Install Dependencies**:
-```bash
 sudo apt install curl wget tmux nano -y
-```
 
-4. **Install NVIDIA Drivers for WSL**: In Windows (not WSL), install latest NVIDIA drivers with WSL support
-
-5. **Install Inference.net**:
-```bash
+# Install Inference.net
 curl -fsSL https://devnet.inference.net/install.sh | sh
+
+# Follow Ubuntu steps 4-6 above
 ```
 
-6. **Follow Ubuntu Steps**: Continue with Steps 4-7 from the Ubuntu installation guide
-
-7. **Start Worker**: Use tmux for persistent operation:
-```bash
-tmux new -s inference
-inference login
-inference worker create
-inference worker start --worker <your-worker-id> --code <your-worker-code>
-```
+**💡 Tip:** WSL gives you Linux performance on Windows!
 
 ---
 
-## 📊 Node Management Commands
+## ⚡ Get Running
 
 ### Essential Commands
 
-**Check worker status**:
+**Check everything is working:**
 ```bash
 inference worker status
 ```
 
-**View worker logs**:
+**View live earnings/logs:**
 ```bash
 inference worker logs
 ```
 
-**Stop worker**:
-```bash
-inference worker stop
-```
-
-**Restart worker**:
+**Restart if stuck:**
 ```bash
 inference worker restart
 ```
 
-**Create new worker**:
+**Stop completely:**
+```bash
+inference worker stop
+```
+
+**Create new worker:**
 ```bash
 inference worker create
 ```
 
-**Clean worker data**:
+**Clean reset:**
 ```bash
 inference worker clean
 ```
 
-**Check client version**:
+**Update client:**
 ```bash
-inference version
+inference version  # Check current version
+# Auto-updates enabled - no manual updates needed!
 ```
 
-**Login to account**:
-```bash
-inference login
-```
-
-**Get help**:
+**Get help:**
 ```bash
 inference --help
 inference worker --help
 ```
 
+### 🎯 Pro Tips
+
+- **Monitor GPU**: `nvidia-smi -l 1` (live GPU monitoring)
+- **Check disk space**: `df -h` (models take space)
+- **Temperature**: Keep GPU under 80°C for longevity
+- **Internet**: Stable connection = more jobs = more money
+
 ---
 
-## 💰 Understanding the Reward System
+## 💰 How Rewards Work
 
-### Dual Token System
+### Two Types of Rewards
 
-**$INT Points (Off-chain)**:
-- Accumulated in real-time as jobs are processed
-- Calculated based on computational work performed
-- May be awarded for non-compute contributions (guides, community help)
+**$INT Points (Immediate)**
+- Earned for every AI job processed
+- Real-time accumulation
+- Bonus points for community contributions
 
-**$INT-DEV Tokens (On-chain)**:
+**$INT-DEV Tokens (Real Crypto)**
 - Distributed daily at midnight UTC
-- Based on stake-weighted job completion
-- Required for staking to receive job allocations
+- Based on your stake and performance
+- Trade on Solana DEX
 
-### Stake-Weighted Routing
+### The Stake System
 
-Each instance receives a priority score that determines job probability based on Device VRAM, Total INT Stake, Reputation Weight, and network parameter k
+**Higher Stake = More Jobs = More Money**
 
-**Priority Score Factors**:
-- **VRAM Normalization**: Stake distributed across your total VRAM
-- **Total Stake**: Operator-owned + delegated tokens
-- **Reputation**: Performance-based multiplier (coming later in Epoch 3)
-- **Network Parameter k**: Adjusts based on utilization
+Your earnings depend on:
+- **Your GPU power** (VRAM amount)
+- **Your stake** (INT tokens you hold)
+- **Your reputation** (uptime and performance)
+- **Network demand** (busy periods = more earnings)
+
+**Example:**
+- GPU: RTX 4090 (24GB VRAM)
+- Stake: 100,000 INT tokens
+- High uptime: 99%+
+- Result: Premium job allocation
+
+### Delegation System
+
+**Don't have enough tokens?** Others can delegate their tokens to your worker and share earnings. Higher combined stake = more jobs for everyone.
 
 ---
 
-## 📅 Epoch 3 Timeline
+## 📅 Epoch 3 Roadmap
 
-| Date | Feature | Description |
-|------|---------|-------------|
-| **June 6, 2025** | Network Upgrade | • Auto-update system activation for all node types • Enhanced GPU detection and validation• Unified inference engine• New simplified node deployment instructions• Unknown GPUs blocked from joining network |
-| **June 13, 2025** | Economic Layer | • $INT-DEV token airdrop to eligible operators • Staking protocol goes live• Stake-weighted job routing begins• Operator pool creation enabled• Delegation functionality activated |
-| **June 20, 2025** | Extended Features | • Bonus point system for community contributions • Additional point-earning opportunities• Enhanced monitoring and analytics• Reputation system testing begins |
-| **Late June 2025** | Advanced Features | • Full reputation scoring activation • Performance-based routing adjustments• Slashing mechanism testing (devnet only)• Additional operator pool management features |
+| Date | What Happens | Impact |
+|------|-------------|---------|
+| **✅ June 6** | Network Launch | • Auto-updates active<br>• Enhanced detection<br>• New unified engine |
+| **🔥 June 13** | Economic Layer | • **$INT-DEV token airdrop**<br>• Staking goes live<br>• Delegation enabled |
+| **📈 June 20** | Bonus Features | • Community rewards<br>• Enhanced analytics<br>• Performance tracking |
+| **🚀 Late June** | Advanced Features | • Full reputation system<br>• Performance routing<br>• Pool management |
+
+**⚠️ IMPORTANT:** Link your Solana wallet before June 13th to receive token airdrop!
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Common Issues
+### GPU Not Detected
 
-**GPU Not Detected**:
+**Problem:** `Failed to detect GPUs`
+
+**Solutions:**
 ```bash
-# Check GPU status
+# Check GPU
 nvidia-smi
 
-# Verify driver installation
-nvidia-docker --version
+# If fails, reinstall drivers
+sudo ubuntu-drivers autoinstall
+sudo reboot
 
-# Update drivers
-sudo ubuntu-drivers autoinstall && sudo reboot
+# Verify permissions
+sudo usermod -a -G video $USER
+logout  # and login again
 ```
 
-**AMD GPU Issues**:
-Currently, Inference.net Epoch 3 only supports NVIDIA GPUs. AMD GPU support is not yet available. Contact support@inference.net for updates on AMD compatibility.
+### AMD GPU Users
 
-**Worker Connection Issues**:
+**Current Status:** AMD GPUs not supported yet in Epoch 3.
+
+**What to do:**
+1. Contact support@inference.net
+2. Join Discord: [discord.gg/kuzco](https://discord.gg/kuzco)
+3. Request AMD support with your GPU model
+
+**Your GPU specs:**
 ```bash
-# Check network connectivity
+lspci | grep -i amd
+clinfo  # Check OpenCL support
+```
+
+### Connection Issues
+
+**Problem:** Worker keeps disconnecting
+
+**Solutions:**
+```bash
+# Test connection
 ping devnet.inference.net
 
-# Restart worker
-inference worker restart
-
-# Check firewall settings
+# Check firewall
 sudo ufw status
+
+# Restart networking
+sudo systemctl restart networking
+
+# Clean restart worker
+inference worker stop
+inference worker clean
+inference worker start --worker <id> --code <code>
 ```
 
-**Performance Issues**:
-```bash
-# Monitor GPU temperature
-nvidia-smi -l 1
+### Performance Issues
 
-# Check disk space
+**Problem:** Low earnings or slow processing
+
+**Check:**
+```bash
+# GPU temperature (keep under 80°C)
+nvidia-smi
+
+# Memory usage
+free -h
+
+# Disk space (need 50GB+ free)
 df -h
 
-# Monitor memory usage
-free -h
+# Network speed
+curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -
 ```
-
-**Auto-Update Problems**:
-The auto-update mechanism performs health checks and automatically rollbacks to previous stable version if update fails
 
 ### Log Analysis
 
-View detailed logs:
+**See what's happening:**
 ```bash
 # Worker logs
 inference worker logs
@@ -402,32 +408,58 @@ inference worker logs
 # Follow live logs
 inference worker logs --follow
 
-# System logs (if using systemd)
+# System service logs
 journalctl -u inference.service -f
-
-# GPU logs
-nvidia-smi dmon
 ```
 
-### Getting Help
+### Emergency Reset
 
-**Community Support**:
-- Join [Discord](https://discord.gg/kuzco) for real-time help
-- Monitor #announcements for network updates
-- Open support tickets through Discord
+**Nuclear option if everything breaks:**
+```bash
+# Stop everything
+inference worker stop
 
-**Documentation**:
-- Official docs: [docs.devnet.inference.net](https://docs.devnet.inference.net)
-- Dashboard: [devnet.inference.net](https://devnet.inference.net)
+# Clean all data
+inference worker clean --force
+
+# Reinstall
+curl -fsSL https://devnet.inference.net/install.sh | sh
+
+# Start fresh
+inference login
+inference worker create
+inference worker start --worker <new-id> --code <new-code>
+```
 
 ---
 
-## 📞 Support & Resources
+## 🆘 Get Help
 
-- **Documentation**: [docs.devnet.inference.net](https://docs.devnet.inference.net)
+### Community Support
+- **Discord**: [discord.gg/kuzco](https://discord.gg/kuzco) (fastest help)
+- **Twitter**: [@bokiko_io](https://twitter.com/bokiko_io) (updates and tips)
+- **Email**: support@inference.net
+
+### Documentation
+- **Official Docs**: [docs.devnet.inference.net](https://docs.devnet.inference.net)
 - **Dashboard**: [devnet.inference.net](https://devnet.inference.net)
-- **Discord Community**: [discord.gg/kuzco](https://discord.gg/kuzco)
-- **Status Updates**: Follow #announcements on Discord
-- **Follow the Guide Author**: [@bokiko_io](https://twitter.com/bokiko_io) on Twitter
+- **This Guide**: Always updated with latest info
 
-*Last Updated: June 7, 2025 - Epoch 3 Launch*
+### Before Asking for Help
+
+**Include this info:**
+```bash
+# Your system info
+uname -a
+nvidia-smi
+inference version
+
+# Your error logs
+inference worker logs | tail -50
+```
+
+---
+
+**🎉 Congratulations!** Your GPU is now part of the world's largest decentralized AI network. Happy mining!
+
+*Guide by [@bokiko_io](https://twitter.com/bokiko_io) - Updated June 7, 2025*
