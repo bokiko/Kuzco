@@ -1,4 +1,4 @@
-# 🚀 Inference.net Epoch 3 - Complete Setup Guide
+# 🚀 Kuzco: Inference.net Epoch 3 - Complete Setup Guide
 
 
 **Follow [@bokiko_io](https://twitter.com/bokiko_io) for updates and crypto mining guides**
